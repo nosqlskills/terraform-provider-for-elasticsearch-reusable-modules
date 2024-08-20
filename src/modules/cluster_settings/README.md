@@ -15,9 +15,6 @@ Welcome to the **[Module Name]** Terraform module! This README file will guide y
 - [Module Inputs](#module-inputs)
 - [Module Outputs](#module-outputs)
 - [Best Practices](#best-practices)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## Introduction
 
@@ -39,25 +36,6 @@ Before using this module, ensure you have the following prerequisites:
 - **Terraform**: [Minimum required version, e.g., v1.0.0 or later]
 - **Cloud Provider CLI**: [e.g., AWS CLI, Azure CLI, etc.]
 - **Other Tools**: [Any other necessary tools or dependencies]
-
-### Installation
-
-Clone the module to your local machine or use it as a source in your Terraform configuration:
-
-```bash
-git clone https://github.com/your-username/terraform-[module-name].git
-```
-
-Or reference it directly in your Terraform configuration:
-
-```hcl
-module "example" {
-  source = "git::https://github.com/your-username/terraform-[module-name].git"
-  # Add any required variables here
-}
-```
-
-## Usage
 
 ### Basic Example
 
@@ -89,18 +67,36 @@ module "example_advanced" {
 }
 ```
 
-## Module Inputs
+## Providers
 
-This module accepts the following input variables:
+| Name | Version |
+|------|---------|
+| <a name="provider_elasticstack"></a> [elasticstack](#provider\_elasticstack) | n/a |
 
-| Name           | Type   | Default       | Description                                    |
-| -------------- | ------ | ------------- | ---------------------------------------------- |
-| `variable1`    | string | `"default1"`  | [Description of variable1]                     |
-| `variable2`    | number | `0`           | [Description of variable2]                     |
-| `variable3`    | list   | `[]`          | [Description of variable3]                     |
-| `variable4`    | bool   | `true`        | [Description of variable4]                     |
+## Modules
 
-[Add additional variables as needed. Be sure to include details about their types, default values, and descriptions.]
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [elasticstack_elasticsearch_cluster_settings.cluster_settings](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs/resources/elasticsearch_cluster_settings) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_auto_create_index"></a> [auto\_create\_index](#input\_auto\_create\_index) | Whether or not a PUT request can automatically create an index | `string` | `"false"` | no |
+| <a name="input_cluster_routing_allocation_awareness_attributes"></a> [cluster\_routing\_allocation\_awareness\_attributes](#input\_cluster\_routing\_allocation\_awareness\_attributes) | What attributes to use to tell shards how to balance | `string` | `"k8s_node_name"` | no |
+| <a name="input_cluster_routing_allocation_balance_index"></a> [cluster\_routing\_allocation\_balance\_index](#input\_cluster\_routing\_allocation\_balance\_index) | How evenly to balance shards of an index across all nodes | `string` | `"0.85f"` | no |
+| <a name="input_cluster_routing_allocation_balance_shard"></a> [cluster\_routing\_allocation\_balance\_shard](#input\_cluster\_routing\_allocation\_balance\_shard) | How evenly to distributes all shards across all nodes | `string` | `"0.85f"` | no |
+| <a name="input_cluster_routing_allocation_enable"></a> [cluster\_routing\_allocation\_enable](#input\_cluster\_routing\_allocation\_enable) | What allocation options to use | `string` | `"all"` | no |
+| <a name="input_watermark_flood_mapping"></a> [watermark\_flood\_mapping](#input\_watermark\_flood\_mapping) | Mapping of watermark levels for this watermark | `map` | <pre>{<br>  "large_cluster": "98%",<br>  "medium_cluster": "96%",<br>  "small_cluster": "94%"<br>}</pre> | no |
+| <a name="input_watermark_high_mapping"></a> [watermark\_high\_mapping](#input\_watermark\_high\_mapping) | Mapping of watermark levels for this watermark | `map` | <pre>{<br>  "large_cluster": "94%",<br>  "medium_cluster": "92%",<br>  "small_cluster": "90%"<br>}</pre> | no |
+| <a name="input_watermark_low_mapping"></a> [watermark\_low\_mapping](#input\_watermark\_low\_mapping) | Mapping of watermark levels for this watermark | `map` | <pre>{<br>  "large_cluster": "90%",<br>  "medium_cluster": "88%",<br>  "small_cluster": "86%"<br>}</pre> | no |
+| <a name="input_watermark_size"></a> [watermark\_size](#input\_watermark\_size) | This is an opinionated variable that dynamically sets the low, medium and high watermarks for you. Valid options are: small\_cluster, medium\_cluster and large\_cluster. | `string` | `"medium_cluster"` | no |
+
 
 ### Example Input Configuration
 
@@ -115,45 +111,8 @@ variable4 = false
 
 ## Module Outputs
 
-This module provides the following outputs:
-
-| Name           | Description                                    |
-| -------------- | ---------------------------------------------- |
-| `output1`      | [Description of output1]                       |
-| `output2`      | [Description of output2]                       |
-| `output3`      | [Description of output3]                       |
-
-[Add additional outputs as needed, and describe what each output represents.]
+No outputs.
 
 ## Best Practices
 
 [Optional: Provide any best practices or tips for using the module effectively. This could include recommendations for scaling, security considerations, or performance optimizations.]
-
-## Contributing
-
-Contributions are welcome! If you would like to contribute to this project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes and commit them with clear and concise messages.
-4. Push your branch to your forked repository.
-5. Open a Pull Request in the main repository.
-
-For more details, please see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any questions or feedback, feel free to reach out:
-
-- **Your Name**
-- **Email:** your.email@example.com
-- **GitHub:** [your-username](https://github.com/your-username)
-
----
-
-Thank you for using the **[Module Name]** Terraform module! We hope it meets your needs and simplifies your cloud infrastructure management. Happy Terraforming! 🎉
-

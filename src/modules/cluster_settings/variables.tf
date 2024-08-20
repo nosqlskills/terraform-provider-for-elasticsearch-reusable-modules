@@ -1,7 +1,12 @@
 variable "watermark_size" {
-    description = "Sets the watermark standard. See the mapping for the standardised named values. small_cluster, medium_cluster or large_cluster"
+    description = "This is an opinionated variable that dynamically sets the low, medium and high watermarks for you. Valid options are: small_cluster, medium_cluster and large_cluster."
     nullable = false
     default = "medium_cluster"
+    
+    validation {
+        condition     = contains(["small_cluster", "medium_cluster", "large_cluster"], var.watermark_size)
+        error_message = "The watermark_size must be one of small_cluster, medium_cluster or large_cluster."
+  }
 }
 
 variable "watermark_flood_mapping" {
@@ -37,21 +42,20 @@ variable "watermark_low_mapping" {
 variable "cluster_routing_allocation_balance_index" {
     description = "How evenly to balance shards of an index across all nodes"
     nullable = false
-    default = "0.85f"
+    default = "0.85f" # This is an aggressive setting
 }
 
 variable "cluster_routing_allocation_balance_shard" {
     description = "How evenly to distributes all shards across all nodes"
     nullable = false
-    default = "0.85f"
+    default = "0.85f" # This is an aggressive setting
 }
-
 
 variable "cluster_routing_allocation_awareness_attributes" {
     description = "What attributes to use to tell shards how to balance"
     nullable = false
     type = string
-    default = "k8s_node_name"
+    default = "k8s_node_name" # Change this to match your architecture. This is a standard attribute for kubernetes clusters.
 }
 
 variable "cluster_routing_allocation_enable" {
@@ -65,5 +69,5 @@ variable "auto_create_index" {
     description = "Whether or not a PUT request can automatically create an index"
     type = string
     nullable = false
-    default = "false"
+    default = "false" # Be careful here, clusters like the elasticsearch monitoring cluster will not like this, as well as any clusters that are not entirely using ilm or data streams.
 }

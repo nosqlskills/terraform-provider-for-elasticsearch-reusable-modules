@@ -1,4 +1,4 @@
-resource "elasticstack_elasticsearch_cluster_settings" "this" {
+resource "elasticstack_elasticsearch_cluster_settings" "cluster_settings" {
 
   persistent {
 
