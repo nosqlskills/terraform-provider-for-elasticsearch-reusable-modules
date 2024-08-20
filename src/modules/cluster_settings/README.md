@@ -1,6 +1,6 @@
-# Terraform Module: [Module Name]
+# Terraform Module: Cluster Settings
 
-Welcome to the **[Module Name]** Terraform module! This README file will guide you through the usage, configuration, and customization of the module. Whether you are deploying this module for the first time or contributing to its development, you'll find all the necessary information here.
+ This README file will guide you through the usage, configuration, and customization of the module. Whether you are deploying this module for the first time or contributing to its development, you'll find all the necessary information here.
 
 ## Table of Contents
 

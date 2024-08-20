@@ -1,6 +1,6 @@
 # Modular Elasticsearch Deployment with Terraform
 
-Welcome to the **Modular Elasticsearch Deployment** project! This repository provides a flexible and reusable Terraform module designed to streamline the deployment of Elasticsearch clusters on various cloud platforms. By adopting a modular approach, this project aims to simplify the process of managing Elasticsearch infrastructure, making it easier to customize, scale, and maintain Elasticsearch deployments.
+Welcome to an **Opinionated Terraform Provider Modules** project! The goal here is to take the terraform modules provided by Elasticsearch and extend them with configuration settings for Elasticsearch that provide a "Ready 2 Go" deployment simply by turning flags on and off in terraform depending on what your use case in for Elasticsearch. Hopefully this saves someone some time and maybe some pain, depending on what feature you are enabling.
 
 ## Table of Contents
 
@@ -21,12 +21,9 @@ Welcome to the **Modular Elasticsearch Deployment** project! This repository pro
 
 ## Features
 
-- **Modular Design**: The module is broken down into several sub-modules that can be used independently or together, providing flexibility in how you deploy Elasticsearch.
-- **Multi-Cloud Support**: Compatible with major cloud providers like AWS, GCP, and Azure.
-- **Scalability**: Easily scale your Elasticsearch clusters by modifying simple configuration parameters.
-- **Customizable**: Wide range of configurable options including instance types, node count, security settings, and more.
-- **Secure by Default**: Best practices for security are incorporated, including VPC support, security groups, and SSL/TLS.
-- **Automated**: Simplifies the deployment and management of Elasticsearch clusters with minimal manual intervention.
+- **Opinonated Configurations**: Not all settings need to be set, but some are almost always a good idea. I have inserted the ones i think are good to have out of the box.
+- **Enablement via flags**: Using something like APM? Pass in a terraform flag and get all the @custom component templates, lifecycle policies etc out the box.
+- **Customizable**: Everything is variabilized.
 
 ## Getting Started
 
@@ -35,7 +32,7 @@ Welcome to the **Modular Elasticsearch Deployment** project! This repository pro
 Before using this module, you need to have the following tools installed:
 
 - [Terraform](https://www.terraform.io/downloads.html) v1.0.0 or later
-- [AWS CLI](https://aws.amazon.com/cli/) or equivalent CLI tool for your cloud provider
+- [Elastic Stack Provider](https://registry.terraform.io/providers/elastic/elasticstack/latest/docs)
 - [Git](https://git-scm.com/)
 
 ### Installation
@@ -43,8 +40,8 @@ Before using this module, you need to have the following tools installed:
 Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/modular-elasticsearch-terraform.git
-cd modular-elasticsearch-terraform
+git clone https://github.com/nosqlskills/terraform-provider-for-elasticsearch-reusable-modules.git
+cd terraform-provider-for-elasticsearch-reusable-modules
 ```
 
 ### Quick Start
@@ -55,25 +52,32 @@ cd modular-elasticsearch-terraform
     terraform init
     ```
 
-2. Review and modify the `example/main.tf` file to fit your environment.
+2. Review and modify the `example/main.tf` and `example/variables.tf` files in each of the modules to fit your environment or leave it as is and use variables to override defaults.
 
-3. Apply the Terraform configuration:
+3. Reference each module either from within your repo or as a remote module :
 
+    ```bash
+    module "example" {
+      source = "git::https://github.com/your-username/terraform-[module-name].git"
+    }
+    ```
+4. 
     ```bash
     terraform apply
     ```
 
-4. Confirm the apply step, and Terraform will begin provisioning your Elasticsearch cluster.
+5. Confirm the apply step, and Terraform will begin provisioning your Elasticsearch cluster with the selected modules.
 
 ## Module Structure
 
 This Terraform module is organized as follows:
 
 ```
+├─ src/
 ├── modules/
-│   ├── vpc/
-│   ├── security_group/
-│   ├── elasticsearch/
+│   ├── cluster_settings/
+│   ├── component_templates/
+│   ├── ilm_templates/
 │   └── ...
 ├── examples/
 │   └── basic/
@@ -81,7 +85,7 @@ This Terraform module is organized as follows:
 └── README.md
 ```
 
-- **modules/**: Contains individual sub-modules, each responsible for a different aspect of the Elasticsearch deployment (e.g., VPC, security groups, Elasticsearch nodes).
+- **modules/**: Contains individual sub-modules, each responsible for a different aspect of the Elasticsearch deployment.
 - **examples/**: Example configurations to help you get started quickly.
 - **README.md**: You're reading it now!
 
@@ -92,44 +96,25 @@ This Terraform module is organized as follows:
 Here is a simple example of how to use this module to deploy a basic Elasticsearch cluster:
 
 ```hcl
-module "elasticsearch" {
-  source = "../modules/elasticsearch"
+module "cluster_settings" {
+  source = "../modules/cluster_settings"
 
-  cluster_name           = "my-es-cluster"
-  node_count             = 3
-  instance_type          = "t3.medium"
-  vpc_id                 = "vpc-xxxxxx"
-  subnet_ids             = ["subnet-xxxxxx"]
-  security_group_ids     = ["sg-xxxxxx"]
+  auto_create_index      = "true"
+  watermark_size         = "large_cluster"
 }
 ```
 
 ### Advanced Configuration
 
-For advanced use cases, you can configure the module to deploy multiple node types, customize storage settings, or integrate with other services like Kibana or Logstash. See the [examples](examples/) directory for more details.
+Almost everything is variablised and can be overridden.
 
-## Variables
-
-The module accepts a wide range of variables to customize the deployment. Below are some key variables:
-
-- **cluster_name** (string) - The name of the Elasticsearch cluster.
-- **node_count** (number) - The number of nodes in the cluster.
-- **instance_type** (string) - The EC2 instance type for the Elasticsearch nodes.
-- **vpc_id** (string) - The ID of the VPC where the cluster will be deployed.
-- **subnet_ids** (list) - A list of subnet IDs for the cluster nodes.
-- **security_group_ids** (list) - A list of security group IDs to attach to the cluster nodes.
-
-For a complete list of variables and their descriptions, refer to the [variables.tf](modules/elasticsearch/variables.tf) file.
+For a complete list of variables and their descriptions, refer to the [variables.tf](modules/.../variables.tf) file.
 
 ## Outputs
 
-This module provides the following outputs:
+At present there aren't any dependencies between modules so there are no outputs at the moment.
 
-- **cluster_endpoint** - The endpoint URL of the Elasticsearch cluster.
-- **node_security_group_id** - The ID of the security group applied to Elasticsearch nodes.
-- **cluster_arn** - The Amazon Resource Name (ARN) of the Elasticsearch domain.
-
-For more details, see the [outputs.tf](modules/elasticsearch/outputs.tf) file.
+If this changes then see the [outputs.tf](modules/.../outputs.tf) file.
 
 ## Contributing
 
@@ -143,10 +128,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For any questions, feel free to reach out via GitHub issues or contact the project maintainer:
 
-- **Your Name**
-- **Email:** your.email@example.com
-- **GitHub:** [your-username](https://github.com/your-username)
+- **Jethro Pickering**
+- **Email:** jethro@nosqlskills.com
+- **GitHub:** [nosqlskills](https://github.com/nosqlskills)
 
 ---
 
-Thank you for using the Modular Elasticsearch Deployment project! Happy Terraforming! 🎉
+Thank you for using my modules! Happy Terraforming and Elasticsearching! 🎉
