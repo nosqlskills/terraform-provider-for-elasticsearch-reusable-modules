@@ -34,7 +34,7 @@ resource "elasticstack_elasticsearch_cluster_settings" "cluster_settings" {
 
     setting {
       name  = "cluster.routing.allocation.disk.watermark.high"
-      value =lookup(var.watermark_high_mapping, var.watermark_size)
+      value = lookup(var.watermark_high_mapping, var.watermark_size)
     }
 
     setting {
