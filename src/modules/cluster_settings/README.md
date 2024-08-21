@@ -1,7 +1,5 @@
 # Terraform Module: Cluster Settings
 
- This README file will guide you through the usage, configuration, and customization of the module. Whether you are deploying this module for the first time or contributing to its development, you'll find all the necessary information here.
-
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -18,54 +16,11 @@
 
 ## Introduction
 
-[Provide a brief overview of the module's purpose and what problem it solves. Mention the cloud provider(s) it supports and any specific use cases.]
+There isn't too much to set out of the box with regards to cluster settings, and i don't recommend adding all the defaults here simply because these can change over time and it's hard to track, but there are a few things that I commonly set or try to standardise on that make managing multiple clusters simpler. 
 
 ## Features
 
-- **Feature 1**: [Description of feature 1]
-- **Feature 2**: [Description of feature 2]
-- **Feature 3**: [Description of feature 3]
-- [Add more features as needed]
-
-## Getting Started
-
-### Prerequisites
-
-Before using this module, ensure you have the following prerequisites:
-
-- **Terraform**: [Minimum required version, e.g., v1.0.0 or later]
-- **Cloud Provider CLI**: [e.g., AWS CLI, Azure CLI, etc.]
-- **Other Tools**: [Any other necessary tools or dependencies]
-
-### Basic Example
-
-Here's a basic example of how to use the module:
-
-```hcl
-module "example" {
-  source = "git::https://github.com/your-username/terraform-[module-name].git"
-  
-  # Example variables
-  variable1 = "value1"
-  variable2 = "value2"
-}
-```
-
-### Advanced Usage
-
-For more advanced use cases, you can customize the module by configuring additional parameters. Here's an example:
-
-```hcl
-module "example_advanced" {
-  source = "git::https://github.com/your-username/terraform-[module-name].git"
-  
-  # Advanced configuration
-  variable1 = "custom_value1"
-  variable2 = "custom_value2"
-  variable3 = "custom_value3"
-  # Add more customization options as needed
-}
-```
+- **Watermark Standardisation**: Running multiple elasticsearch clusters of varying sizes means you will likely want to tweak the watermarks so you don't waste space on large clusters. I also don't like having random watermark sizes on every cluster, so i use a flag to dynamically adjust the watermarks based on whether it's a small, medium or large cluster. 
 
 ## Providers
 
@@ -103,10 +58,8 @@ No modules.
 To use this module with custom inputs, you can create a `terraform.tfvars` file:
 
 ```hcl
-variable1 = "my_value"
-variable2 = 42
-variable3 = ["item1", "item2"]
-variable4 = false
+auto_create_index = "true"
+watermark_size = "large_cluster"
 ```
 
 ## Module Outputs
@@ -115,4 +68,4 @@ No outputs.
 
 ## Best Practices
 
-[Optional: Provide any best practices or tips for using the module effectively. This could include recommendations for scaling, security considerations, or performance optimizations.]
+- Don't throw everything you find in cluster settings in here. Just put what you need and let the defaults be set by elasticsearch to avoid issues with future upgrades.
