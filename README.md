@@ -1,6 +1,6 @@
 # Opinionated Terraform Provider for Elasticsearch Modules
 
-Welcome to an **Opinionated Terraform Provider for Elasticsearch Modules** project! The goal here is to take the terraform modules provided by Elasticsearch and extend them with configuration settings for Elasticsearch that provide a "Ready 2 Go" deployment simply by turning flags on and off in terraform depending on what your use case in for Elasticsearch. Hopefully this saves someone some time and maybe some pain, depending on what feature you are enabling.
+Welcome to an **Opinionated Terraform Provider for Elasticsearch Modules** project! The goal here is to take the terraform modules provided by Elasticsearch and extend them with configuration settings for Elasticsearch that provide a "Ready 2 Go" deployment simply by turning flags on and off in terraform depending on what your use case is for Elasticsearch. Hopefully this saves someone some time and maybe some pain, depending on what feature you are enabling.
 
 ## Table of Contents
 
