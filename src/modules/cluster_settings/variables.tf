@@ -1,5 +1,5 @@
 variable "watermark_size" {
-  description = "This is an opinionated variable that dynamically sets the low, medium and high watermarks for you. Valid options are: small_cluster, medium_cluster and large_cluster."
+  description = "Set your low medium and high watermarks dynamically and consistently across clusters based on their size. Valid options are: small_cluster, medium_cluster and large_cluster."
   nullable    = false
   default     = "medium_cluster"
 
