@@ -8,7 +8,7 @@ workflows:
           checkout: true
           context: terraform
           path: src/modules
-          recusrive: true
+          recursive: true
       - terraform/validate:
           checkout: true
           context: terraform
