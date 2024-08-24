@@ -7,7 +7,7 @@ workflows:
       - terraform/fmt:
           checkout: true
           context: terraform
-          path: src/modules
+          path: src/modules/
           recursive: true
       - terraform/validate:
           checkout: true
