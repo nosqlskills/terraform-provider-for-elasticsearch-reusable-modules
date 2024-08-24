@@ -4,11 +4,6 @@ orbs:
 workflows:
   deploy_infrastructure:
     jobs:
-      - terraform/fmt:
-          checkout: true
-          context: terraform
-          path: src/modules/
-          recursive: true
       - terraform/validate:
           checkout: true
           context: terraform
