@@ -8,17 +8,11 @@ workflows:
           checkout: true
           context: terraform
           path: src/modules/cluster_settings
-          requires:
-            - terraform/fmt
       - terraform/validate:
           checkout: true
           context: terraform
           path: src/modules/component_templates
-          requires:
-            - terraform/fmt
       - terraform/validate:
           checkout: true
           context: terraform
           path: src/modules/ilm_policies
-          requires:
-            - terraform/fmt
