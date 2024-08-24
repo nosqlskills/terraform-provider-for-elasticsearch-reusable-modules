@@ -1,6 +1,6 @@
 version: '2.1'
 orbs:
-  terraform: circleci/terraform@3.1
+  terraform: circleci/terraform@3.2.1
 workflows:
   deploy_infrastructure:
     jobs:
@@ -8,11 +8,22 @@ workflows:
           checkout: true
           context: terraform
           path: src/modules
-          recursive: true
+          recusrive: true
       - terraform/validate:
           checkout: true
           context: terraform
-          path: src/modules
-          recursive: true
+          path: src/modules/cluster_settings
+          requires:
+            - terraform/fmt
+      - terraform/validate:
+          checkout: true
+          context: terraform
+          path: src/modules/component_templates
+          requires:
+            - terraform/fmt
+      - terraform/validate:
+          checkout: true
+          context: terraform
+          path: src/modules/ilm_policies
           requires:
             - terraform/fmt
