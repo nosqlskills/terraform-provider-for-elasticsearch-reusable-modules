@@ -7,10 +7,10 @@ workflows:
       - terraform/fmt:
           checkout: true
           context: terraform
-          module_path: src/modules/cluster_settings
+          path: src/modules/cluster_settings
       - terraform/validate:
           checkout: true
           context: terraform
-          module_path: src/modules/cluster_settings
+          path: src/modules/cluster_settings
           requires:
             - terraform/fmt
