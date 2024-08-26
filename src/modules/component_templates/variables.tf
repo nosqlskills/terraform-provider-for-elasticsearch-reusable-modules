@@ -4,6 +4,30 @@ variable "apm_enabled" {
   description = "Set this to true if you are deploying to a cluster that has apm enabled. This will deploy the @custom component templates and ilm policies."
 }
 
+variable "elastic_agent_enabled" {
+  type    = bool
+  default = false
+  description = "Set this to true if you are deploying to a cluster that is receiving data from the elastic agent. This will deploy the @custom component templates."
+}
+
+variable "endpoint_enabled" {
+  type    = bool
+  default = false
+  description = "Set this to true if you are deploying to a cluster that is involved in siem. This will deploy the @custom component templates."
+}
+
+variable "system_enabled" {
+  type    = bool
+  default = false
+  description = "Set this to true if you are collecting system logs. This will deploy the @custom component templates."
+}
+
+variable "kubernetes_enabled" {
+  type    = bool
+  default = false
+  description = "Set this to true if you are collecting logs from kubernetes using the elastic agent. This will deploy the @custom component templates."
+}
+
 variable "logs-apm-app-custom_shards" {
   type    = string
   default = "3"
