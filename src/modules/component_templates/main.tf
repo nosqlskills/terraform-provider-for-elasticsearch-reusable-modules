@@ -86,6 +86,7 @@ resource "elasticstack_elasticsearch_component_template" "logs-apm-app-custom" {
       "number_of_replicas" : var.logs-apm-app-custom_replicas
     })
   }
+}
 
 #metrics-apm.service_destination.1m@custom
 resource "elasticstack_elasticsearch_component_template" "metrics-apm-service-destination-1m" {
